@@ -8,7 +8,8 @@ import { useState } from "react";
 import { Note } from "@/lib/type";
 
 export default function Home() {
-  const [notes, setNotes] = useState<Note[]>([]); // "<Note[]>" notes only accept array of Note type, by default it is empty 
+  const [notes, setNotes] = useState<Note[]>([]); // "<Note[]>" notes only accept array of Note type, by default it is empty
+  console.log(notes); 
 
   const createNewNote = () => {
     // Create a new note Object with id, title, content, and createdAt
@@ -18,7 +19,7 @@ export default function Home() {
       content: "",
       createdAt: Date.now(),
     };
-    console.log(newNote);
+    setNotes([newNote, ...notes]);
   };
 
   return (
@@ -26,7 +27,7 @@ export default function Home() {
       <Header onNewNote={createNewNote} />
       <main className="container mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-1">
-          <NotesSidebar />
+          <NotesSidebar notes={notes}/>
         </div>
         <div className="md:col-span-2">Right</div>
       </main>

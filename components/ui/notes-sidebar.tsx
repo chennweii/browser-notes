@@ -8,8 +8,13 @@ import {
     CardTitle,
   } from "@/components/ui/card"
 import EmptyState from './empty-state';
+import { Note } from '@/lib/type';
 
-export default function NotesSidebar() {
+interface NotesSidebarProps {
+    notes: Note[];
+}
+
+export default function NotesSidebar({ notes }: NotesSidebarProps) {
     return (
         <Card>
             <CardHeader>
@@ -19,7 +24,16 @@ export default function NotesSidebar() {
                 {NotesSidebar.length === 0 ? (
                     <EmptyState message="No notes yet" buttonText="Create your first note"/>
                 ) : (
-                    <h1>List of the notes</h1>
+                    <div>
+                        {notes.map((note) => ( // Map over the notes and display them on the sidebar
+                            <div 
+                            key={note.id}
+                            className="p-3 border-md rounded-xl cursor-pointer hover:bg-accent transition-colors"
+                            >
+                                <h3>{note.title}</h3>
+                            </div>
+                        ))}
+                    </div>
                 )}
             </CardContent>
         </Card>
